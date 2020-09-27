@@ -25,7 +25,7 @@ class App extends Component {
     e.preventDefault();
     console.log(this.state.newTodo);
     this.setState({
-      newTodo:'',
+      newTodo: "",
       todos: [
         ...this.state.todos,
         {
@@ -36,7 +36,13 @@ class App extends Component {
     });
   }
 
-  
+  toggleTodoDone(e, index) {
+    const todos = [...this.state.todos];
+    todos[index] = { ...todos[index] };
+    todos[index].done = e.target.checked;
+    this.setState({ todos });
+  }
+
   render() {
     return (
       <div>
@@ -53,8 +59,16 @@ class App extends Component {
         </form>
 
         <ul>
-          {this.state.todos.map((todo) => (
-            <li key={todo.title}>{todo.title}</li>
+          {this.state.todos.map((todo, index) => (
+            <li key={todo.title}>
+              <input
+                onChange={(event) => this.toggleTodoDone(event, index)}
+                type="checkbox"
+                name=""
+                id=""
+              />
+              <span style={{textDecoration:todo.done ? 'line-through':'inherit'}}>{todo.title}</span>
+            </li>
           ))}
         </ul>
       </div>
