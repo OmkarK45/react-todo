@@ -15,10 +15,17 @@ class App extends Component {
     ],
   };
 
+  newTodoChanged(e) {
+    this.setState({
+      newTodo: e.target.value,
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     console.log(this.state.newTodo);
     this.setState({
+      newTodo:'',
       todos: [
         ...this.state.todos,
         {
@@ -28,12 +35,8 @@ class App extends Component {
       ],
     });
   }
-  newTodoChanged(e) {
-    this.setState({
-      newTodo: e.target.value,
-    });
-  }
 
+  
   render() {
     return (
       <div>
@@ -44,6 +47,7 @@ class App extends Component {
             onChange={(event) => this.newTodoChanged(event)}
             type="text"
             id="newTodo"
+            value={this.state.newTodo}
           />
           <button type="submit">Add todo</button>
         </form>
